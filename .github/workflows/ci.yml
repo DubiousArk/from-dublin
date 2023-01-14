@@ -31,8 +31,10 @@ jobs:
     - run: npm run build --if-present
  
     - run: npm version ${{ inputs.publish_version }}
+    
     - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
     - run: echo "//registry.npmjs.org/:always-auth=true" >> ~/.npmrc
     - run: npm publish
-    - run: git push https://${{ secrets.TOKEN }}@github.com/DubiousArk/from-dublin.git
+    
+#     - run: git push https://${{ secrets.TOKEN }}@github.com/DubiousArk/from-dublin.git
 
