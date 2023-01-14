@@ -1,19 +1,23 @@
 name: Release
 
 on: push
-
+          
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Build
-        run: echo ${{ github.sha }} > Release.txt
-      - name: Test
-        run: cat Release.txt
-      - name: Release
+      
+      - name: Releasee
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: Release.txt
+          body: ${{ steps.create_changelog.outputs.log }} # comes from "git log"
+          files: ${{ steps.create_artifact.outputs.path }}
+          draft: false
+          prerelease: false
+          name: Release ${{ steps.get_release_name.outputs.tag }}
+          tag_name: ${{ steps.get_release_name.outputs.tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
