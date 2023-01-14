@@ -1,37 +1,23 @@
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
+      publish_version:
+        description: 'Publish version'
         required: true
-        default: 'warning' 
+        default: 'major' 
         type: choice
         options:
-        - info
-        - warning
-        - debug 
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true 
-        type: boolean 
-      tags:
-        description: 'Test scenario tags'
-        required: true 
-        type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true 
+        - major
+        - minor
+        - patch
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    if:  ${{ inputs.publish_version }} 
     strategy:
       matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18.x]  
 
     steps:
     - uses: actions/checkout@v3
@@ -41,4 +27,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+    
     - run: npm run build --if-present
+ 
+    - run: npm version ${{ inputs.publish_version }}
+    - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
+    - run: echo "//registry.npmjs.org/:always-auth=true" >> ~/.npmrc
+    - run: npm publish
+    - run: git push https://${{ secrets.TOKEN }}@github.com/DubiousArk/from-dublin.git
+
