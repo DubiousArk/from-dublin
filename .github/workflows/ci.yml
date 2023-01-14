@@ -35,6 +35,8 @@ jobs:
  
     - run: npm version ${{ inputs.publish_version }}
     
+    - run: git push --tags
+    
     - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > ~/.npmrc
     - run: echo "//registry.npmjs.org/:always-auth=true" >> ~/.npmrc
     - run: npm publish
