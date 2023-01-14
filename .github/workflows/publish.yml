@@ -38,7 +38,7 @@ jobs:
  
     - run: npm version ${{ inputs.publish_version }}
     
-    - run: git push
+    - run: git push --follow-tags
     # https://github.com/DubiousArk/from-dublin/settings/actions
     # Workflow permissions to `Read and write permissions`
     
