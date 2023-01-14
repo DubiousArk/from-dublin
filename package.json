@@ -1,7 +1,7 @@
 {
   "name": "from-dublin",
   "version": "1.0.0",
-  "description": "",
+  "description": "good dublin",
   "main": "index.ts",
   "types": "index.ts",
   "bin": {
@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/DubiousArk/from-dublin.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": "du",
+  "author": "me",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DubiousArk/from-dublin/issues"
