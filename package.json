@@ -1,6 +1,6 @@
 {
   "name": "from-dublin",
-  "version": "6.5.0",
+  "version": "6.5.1",
   "description": "good dublin",
   "main": "index.ts",
   "types": "index.ts",
